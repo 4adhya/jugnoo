@@ -96,6 +96,7 @@ footer{background:var(--forest-deep);padding:80px 60px 40px}
 <div class="booking-field"><div class="booking-field-label">Guests</div><div class="booking-field-val"><select id="guests"><option>2 Guests</option></select></div></div>
 <div class="booking-field"><div class="booking-field-label">Rooms</div><div class="booking-field-val"><select id="rooms"><option>1 Room</option></select></div></div>
 <button class="booking-submit" onclick="checkAvailability()">Check Availability</button>
+<div id="resultBox" style="padding:15px;color:#fff;margin-top:10px;font-size:14px;"></div>
 </div>
 </div>
 
@@ -216,12 +217,14 @@ window.checkAvailability = async function() {
   const rooms = document.getElementById('rooms').value;
 
   if (!checkin || !checkout) {
-    alert('Please select check-in and check-out dates.');
+    resultBox.innerText = "Please select check-in and check-out dates.";
+resultBox.style.color = "orange";
     return;
   }
 
   if (checkout <= checkin) {
-    alert('Check-out must be after check-in.');
+    resultBox.innerText = "Check-out must be after check-in.";
+resultBox.style.color = "orange";
     return;
   }
 
@@ -236,7 +239,8 @@ window.checkAvailability = async function() {
   });
 
   if (unavailable) {
-    alert('Selected dates are not available.');
+    resultBox.innerText = "Selected dates are not available.";
+resultBox.style.color = "red";
     return;
   }
 
@@ -248,7 +252,8 @@ window.checkAvailability = async function() {
     createdAt: new Date()
   });
 
-  alert('Booking saved successfully.');
+  resultBox.innerText = "Booking saved successfully!";
+resultBox.style.color = "lightgreen";
 };
 </script>
 
